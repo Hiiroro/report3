@@ -9,10 +9,10 @@ package jp.ac.uryukyu.ie.e235722;
  * Created by tnal on 2016/11/13.
  */
 public class Enemy {
-    public String name;
-    public int hitPoint;
-    public int attack;
-    public boolean dead;
+    private String name;
+    private int hitPoint;
+    private int attack;
+    private boolean dead;
 
     /**
      * コンストラクタ。名前、最大HP、攻撃力を指定する。
@@ -36,7 +36,7 @@ public class Enemy {
     public void attack(Hero hero){
         if(dead == false){
             int damage = (int)(Math.random() * attack);
-            System.out.printf("%sの攻撃！%sに%dのダメージを与えた！！\n", name, hero.name, damage);
+            System.out.printf("%sの攻撃！%sに%dのダメージを与えた！！\n", name, hero.getName(), damage);
             hero.wounded(damage);
         }
     }
@@ -54,4 +54,75 @@ public class Enemy {
         }
     }
 
+    /**
+     * 敵の名前を返却するメソッド。
+     * 
+     * @return 敵の名前
+     */
+    public String getName(){
+        return this.name;
+    }
+
+    /**
+     * 敵のHPを返却するメソッド。
+     * 
+     * @return 敵のHP
+     */
+    public int getHitPoint(){
+        return this.hitPoint;
+    }
+
+    /**
+     * 敵の攻撃力を返却するメソッド。
+     * 
+     * @return 敵の攻撃力
+     */
+    public int getAttack(){
+        return this.attack;
+    }
+
+    /**
+     * 敵の生死状態を返却するメソッド。
+     * 
+     * @return 敵の生死状態
+     */
+    public boolean getDead(){
+        return this.dead;
+    }
+
+    /**
+     * 敵の名前を設定するメソッド。
+     * 
+     * @param name 敵の名前
+     */
+    public void setName(String name){
+        this.name = name;
+    }
+
+    /**
+     * 敵のHPを設定するメソッド。
+     * 
+     * @param hitPoint 敵のHP
+     */
+    public void setHitPoint(int hitPoint){
+        this.hitPoint = hitPoint;
+    }
+
+    /**
+     * 敵の攻撃力を設定するメソッド。
+     * 
+     * @param attack 敵の攻撃力
+     */
+    public void setAttack(int attack){
+        this.attack = attack;
+    }
+
+    /**
+     * 敵の生死状態を設定するメソッド。
+     * 
+     * @param dead 敵の生死状態
+     */
+    public void setDead(boolean dead){
+        this.dead = dead;
+    }
 }
