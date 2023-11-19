@@ -8,11 +8,7 @@ package jp.ac.uryukyu.ie.e235722;
  *  boolean dead; //敵の生死状態。true=死亡。
  * Created by tnal on 2016/11/13.
  */
-public class Hero {
-    private String name;
-    private int hitPoint;
-    private int attack;
-    private boolean dead;
+public class Hero extends LivingThing{
 
     /**
      * コンストラクタ。名前、最大HP、攻撃力を指定する。
@@ -20,23 +16,8 @@ public class Hero {
      * @param maximumHP ヒーローのHP
      * @param attack ヒーローの攻撃力
      */
-    public Hero (String name, int maximumHP, int attack) {
-        this.name = name;
-        hitPoint = maximumHP;
-        this.attack = attack;
-        dead = false;
-        System.out.printf("%sのHPは%d。攻撃力は%dです。\n", name, maximumHP, attack);
-    }
-
-    /**
-     * Enemyへ攻撃するメソッド。
-     * attackに応じて乱数でダメージを算出し、hero.wounded()によりダメージ処理を実行。
-     * @param e 攻撃対象
-     */
-    public void attack(Enemy e){
-        int damage = (int)(Math.random() * attack);
-        System.out.printf("%sの攻撃！%sに%dのダメージを与えた！！\n", name, e.getName(), damage);
-        e.wounded(damage);
+    public Hero (String _name, int _maximumHP, int _attack) {
+        super(_name, _maximumHP, _attack);
     }
 
     /**
@@ -44,84 +25,13 @@ public class Hero {
      * 指定されたダメージを hitPoint から引き、死亡判定を行う。
      * @param damage 受けたダメージ
      */
+    @Override
     public void wounded(int damage){
-        hitPoint -= damage;
-        if( hitPoint < 0 ) {
-            dead = true;
-            System.out.printf("勇者%sは道半ばで力尽きてしまった。\n", name);
+        int nowHp = getHitPoint() - damage;
+        setHitPoint(nowHp);
+        if( nowHp < 0 ) {
+            setDead(true);
+            System.out.printf("勇者%sは道半ばで力尽きてしまった。\n", getName());
         }
     }
-    
-    /**
-     * ヒーロー名を返却するメソッド。
-     * 
-     * @return ヒーロー名
-     */
-    public String getName(){
-        return this.name;
-    }
-
-    /**
-     * HPを返却するメソッド。
-     * 
-     * @return HP
-     */
-    public int getHitPoint(){
-        return this.hitPoint;
-    }
-
-    /**
-     *攻撃力を返却するメソッド。
-     * 
-     * @return 攻撃したダメージ
-     */
-    public int getAttack(){
-        return this.attack;
-    }
-
-    /**
-     * ヒーローの生死状態を返却するメソッド。
-     * 
-     * @return ヒーローの生死状態
-     */
-    public boolean getDead(){
-        return this.dead;
-    }
-
-    /**
-     * ヒーロー名を設定するメソッド。
-     * 
-     * @param name ヒーロー名
-     */
-    public void setName(String name){
-        this.name = name;
-    }
-
-    /**
-     * ヒーローのHPを設定するメソッド。
-     * 
-     * @param hitPoint ヒーローのHP
-     */
-    public void setHitPoint(int hitPoint){
-        this.hitPoint = hitPoint;
-    }
-
-    /**
-     * ヒーローの攻撃力を設定するメソッド。
-     * 
-     * @param attack ヒーローの攻撃力
-     */
-    public void setAttack(int attack){
-        this.attack = attack;
-    }
-
-    /**
-     * ヒーローの生死状態を設定するメソッド。
-     * 
-     * @param dead ヒーローの生死状態
-     */
-    public void setDead(boolean dead){
-        this.dead = dead;
-    }
-
 }
